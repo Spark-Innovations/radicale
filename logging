@@ -38,7 +38,7 @@ handlers = console,file
 [handler_console]
 # Console handler
 class = StreamHandler
-level = INFO
+level = DEBUG
 args = (sys.stdout,)
 formatter = simple
 
