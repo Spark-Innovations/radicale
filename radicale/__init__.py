@@ -86,7 +86,7 @@ class HTTPSServer(HTTPServer):
 
         # Test if the SSL files can be read
         for name in ("certificate", "key"):
-            filename = config.get("server", name)
+            filename = os.path.expanduser(config.get("server", name))
             try:
                 open(filename, "r").close()
             except IOError as exception:
