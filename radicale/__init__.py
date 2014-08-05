@@ -47,6 +47,8 @@ except ImportError:
     from urlparse import urlparse
 # pylint: enable=F0401,E0611
 
+client.responses[207]='Multistatus'
+
 from . import auth, config, ical, log, rights, storage, xmlutils
 
 
@@ -241,6 +243,7 @@ class Application(object):
 
     def __call__(self, environ, start_response):
         """Manage a request."""
+        log.LOGGER.info("****************************************")
         log.LOGGER.info("%s request at %s received" % (
             environ["REQUEST_METHOD"], environ["PATH_INFO"]))
         headers = pprint.pformat(self.headers_log(environ))
@@ -253,10 +256,12 @@ class Application(object):
                 "/%s" % environ["PATH_INFO"][len(base_prefix):])
             log.LOGGER.debug("Sanitized path: %s", environ["PATH_INFO"])
         else:
+            environ["PATH_INFO"] = self.sanitize_uri(environ["PATH_INFO"])
+            log.LOGGER.debug("Sanitized path: %s", environ["PATH_INFO"])
             # Request path not starting with base_prefix, not allowed
-            log.LOGGER.debug(
-                "Path not starting with prefix: %s", environ["PATH_INFO"])
-            environ["PATH_INFO"] = None
+#            log.LOGGER.debug(
+#                "Path not starting with prefix: %s", environ["PATH_INFO"])
+#            environ["PATH_INFO"] = None
 
         # Get content
         content_length = int(environ.get("CONTENT_LENGTH") or 0)
