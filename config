@@ -1,17 +1,15 @@
 
-
-
 [server]
-hosts = 0.0.0.0:5232
-daemon = False
+hosts = 0.0.0.0:8443
+daemon = True
 pid =
 ssl = True
-certificate = ~user-data/ssl/ssl_certificate.pem
-key = ~user-data/ssl/ssl_private_key.pem
+certificate = /home/user-data/ssl/ssl_certificate.pem
+key = /home/user-data/ssl/ssl_private_key.pem
 protocol = PROTOCOL_SSLv23
 ciphers =
 dns_lookup = True
-base_prefix = /
+base_prefix = /caldav/
 realm = Radicale - Password Required
 
 
@@ -27,27 +25,6 @@ custom_handler =
 
 htpasswd_filename = ~/radicale/htpasswd
 htpasswd_encryption = plain
-
-ldap_url = ldap://localhost:389/
-ldap_base = ou=users,dc=example,dc=com
-ldap_attribute = uid
-ldap_filter =
-ldap_binddn =
-ldap_password =
-ldap_scope = OneLevel
-
-imap_hostname = localhost
-imap_port = 143
-imap_ssl = False
-
-pam_group_membership =
-
-courier_socket =
-
-http_url =
-http_user_parameter =
-http_password_parameter =
-
 
 [git]
 committer = Radicale <radicale@example.com>
@@ -77,3 +54,8 @@ debug = False
 full_environment = False
 
 
+[headers]
+Access-Control-Allow-Origin = *
+Access-Control-Allow-Methods = GET, POST, OPTIONS, PROPFIND, PROPPATCH, REPORT, PUT, MOVE, DELETE, LOCK, UNLOCK, HEAD, MKCALENDAR, MKCOL
+Access-Control-Allow-Headers = User-Agent, Authorization, Content-type, Depth, If-match, If-None-Match, Lock-Token, Timeout, Destination, Overwrite, X-client, X-Requested-With
+Access-Control-Expose-Headers = Etag
