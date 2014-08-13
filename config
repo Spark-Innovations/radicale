@@ -1,7 +1,7 @@
 
 [server]
 hosts = 0.0.0.0:8443
-daemon = True
+daemon = False
 pid =
 ssl = True
 certificate = /home/user-data/ssl/ssl_certificate.pem
